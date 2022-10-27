@@ -6,16 +6,28 @@ export default function App() {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'on/off':
-        return { ...state, started: !state.started };
+        if (!state.started) {
+          if (Math.random() < 0.5) return { ...state, started: !state.started };
+          return state;
+        } else {
+          return { ...state, started: !state.started, gear: 0 };
+        }
       case 'gas':
-        return { ...state, speed: state.speed + 50 };
+        if (state.started && state.gear != 0)
+          return { ...state, speed: state.speed + 10 * gear };
+        return state;
       case 'brake':
         return { ...state, speed: state.speed - 50 };
+        return state;
       case 'gearUp':
-        return { ...state, gear: state.gear + 1 };
+        if (state.started)
+          return { ...state, gear: state.gear >= 5 ? 5 : state.gear + 1 };
+        return state;
       case 'gearDown':
-        return { ...state, gear: state.gear - 1 };
+        return { ...state, gear: state.gear <= -2 ? -2 : state.gear - 1 };
+        return state;
     }
+    return state;
   };
 
   const [state, dispatch] = useReducer(reducer, {

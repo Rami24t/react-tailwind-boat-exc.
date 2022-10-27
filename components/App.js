@@ -13,7 +13,6 @@ export default function App() {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'distancePerSecond':
-        //        state.seconds = state.seconds + 1;
         return {
           ...state,
           distance: state.distance + Math.abs(state.speed),
@@ -63,12 +62,21 @@ export default function App() {
     started: false,
     speed: 0,
     gear: 0,
-    //    seconds: 0,
     distance: 0,
   });
 
   return (
-    <div className="flex gap-5 flex-col p-1 items-center justify-center h-screen">
+    <div
+      className="container flex gap-5 flex-col p-1 items-center justify-center h-screen"
+      style={{
+        backgroundImage:
+          "url('https://source.unsplash.com/random/" +
+          window.innerWidth +
+          'x' +
+          window.innerHeight +
+          "?boat')",
+      }}
+    >
       <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-4">
         <label>
           <input disabled value={state.started ? 'ON' : 'OFF'} />

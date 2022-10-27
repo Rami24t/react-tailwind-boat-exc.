@@ -7,19 +7,16 @@ export default function App() {
     switch (action.type) {
       case 'on/off':
         if (!state.started) {
-          if (Math.random() < 0.5) return { ...state, started: !state.started };
+          if (Math.random() < 0.5) return { ...state, started: true };
           return state;
         } else {
-          return { ...state, started: !state.started, gear: 0 };
+          return { ...state, started: false, gear: 0 };
         }
       case 'gas':
         if (state.started && state.gear != 0)
           return {
             ...state,
-            speed:
-              state.gear < 0
-                ? state.speed - 10 * state.gear
-                : state.speed + 10 * state.gear,
+            speed: state.speed + 10 * state.gear,
           };
         return state;
       case 'speedDown':
@@ -27,11 +24,11 @@ export default function App() {
           return {
             ...state,
             speed:
-              state.gear > 0
-                ? state.speed - 10 * state.gear <= 0
+              state.speed < 0 && state.gear < 0
+                ? state.speed - 10 * state.gear >= 0
                   ? 0
                   : state.speed - 10 * state.gear
-                : state.speed + 10 * state.gear >= 0
+                : state.speed - 10 * state.gear <= 0
                 ? 0
                 : state.speed - 10 * state.gear,
           };

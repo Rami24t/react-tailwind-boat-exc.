@@ -1,0 +1,6 @@
+input {
+  width: 15vw;
+  text-align: center;
+  border: 2px rgb(118, 0, 0) solid;
+  user-select: none;
+}

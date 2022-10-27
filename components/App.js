@@ -8,6 +8,7 @@ export default function App() {
       case 'on/off':
         if (!state.started) {
           if (Math.random() < 0.5) return { ...state, started: true };
+          else alert('Try again!');
           return state;
         } else {
           return { ...state, started: false, gear: 0 };

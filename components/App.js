@@ -14,17 +14,35 @@ export default function App() {
         }
       case 'gas':
         if (state.started && state.gear != 0)
-          return { ...state, speed: state.speed + 10 * gear };
+          return {
+            ...state,
+            speed:
+              state.gear < 0
+                ? state.speed - 10 * state.gear
+                : state.speed + 10 * state.gear,
+          };
         return state;
-      case 'brake':
-        return { ...state, speed: state.speed - 50 };
+      case 'speedDown':
+        if (state.started && state.gear != 0)
+          return {
+            ...state,
+            speed:
+              state.gear > 0
+                ? state.speed - 10 * state.gear <= 0
+                  ? 0
+                  : state.speed - 10 * state.gear
+                : state.speed + 10 * state.gear >= 0
+                ? 0
+                : state.speed - 10 * state.gear,
+          };
         return state;
       case 'gearUp':
         if (state.started)
           return { ...state, gear: state.gear >= 5 ? 5 : state.gear + 1 };
         return state;
       case 'gearDown':
-        return { ...state, gear: state.gear <= -2 ? -2 : state.gear - 1 };
+        if (state.started)
+          return { ...state, gear: state.gear <= -2 ? -2 : state.gear - 1 };
         return state;
     }
     return state;
@@ -33,7 +51,7 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, {
     started: false,
     speed: 0,
-    gear: 1,
+    gear: 0,
   });
 
   return (
@@ -48,7 +66,7 @@ export default function App() {
           <input disabled value={state.speed} />
         </label>
         <label>
-          Brake
+          speedDown
           <input disabled value={state.speed} />
         </label>
         <label>
@@ -68,7 +86,9 @@ export default function App() {
           <button onClick={() => dispatch({ type: 'gas' })}>Gas</button>
         </div>
         <div>
-          <button onClick={() => dispatch({ type: 'brake' })}>Brake</button>
+          <button onClick={() => dispatch({ type: 'speedDown' })}>
+            speedDown
+          </button>
         </div>
         <div>
           <button onClick={() => dispatch({ type: 'gearUp' })}>Gear-UP</button>

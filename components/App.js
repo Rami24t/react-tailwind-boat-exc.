@@ -53,13 +53,17 @@ export default function App() {
 
   return (
     <div className="flex gap-5 flex-col p-1 items-center justify-center h-screen">
-      <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-5">
+      <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-4">
         <label>
           <input disabled value={state.started ? 'ON' : 'OFF'} />
         </label>
         <label>
           Speed
           <input disabled value={Math.abs(state.speed)} />
+        </label>
+        <label>
+          Direction
+          <input disabled value={state.speed >= 0 ? 'Forward' : 'Backward'} />
         </label>
         <label>
           Gear

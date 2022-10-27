@@ -1,10 +1,23 @@
 import React from 'react';
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import './App.css';
 
 export default function App() {
+  useEffect(() => {
+    const time = setInterval(() => {
+      dispatch({ type: 'distancePerSecond' });
+    }, 1000);
+    return () => clearInterval(time);
+  }, []);
+
   const reducer = (state, action) => {
     switch (action.type) {
+      case 'distancePerSecond':
+        //        state.seconds = state.seconds + 1;
+        return {
+          ...state,
+          distance: state.distance + Math.abs(state.speed),
+        };
       case 'on/off':
         if (!state.started) {
           if (Math.random() < 0.5) return { ...state, started: true };
@@ -50,6 +63,8 @@ export default function App() {
     started: false,
     speed: 0,
     gear: 0,
+    //    seconds: 0,
+    distance: 0,
   });
 
   return (
@@ -69,6 +84,10 @@ export default function App() {
         <label>
           Gear
           <input disabled value={state.gear} />
+        </label>
+        <label>
+          Distance travelled
+          <input disabled value={state.distance} />
         </label>
       </div>
       <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-5">

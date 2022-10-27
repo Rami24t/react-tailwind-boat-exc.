@@ -24,7 +24,7 @@ export default function App() {
           return {
             ...state,
             speed:
-              state.speed < 0 && state.gear < 0
+              state.speed <= 0 && state.gear < 0
                 ? state.speed - 10 * state.gear >= 0
                   ? 0
                   : state.speed - 10 * state.gear

@@ -52,26 +52,17 @@ export default function App() {
   });
 
   return (
-    <div className="flex flex-col p-1 items-center justify-center h-screen">
+    <div className="flex gap-5 flex-col p-1 items-center justify-center h-screen">
       <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-5">
         <label>
-          ON/OFF
-          <input disabled value={state.started} />
+          <input disabled value={state.started ? 'ON' : 'OFF'} />
         </label>
         <label>
-          Gas
-          <input disabled value={state.speed} />
+          Speed
+          <input disabled value={Math.abs(state.speed)} />
         </label>
         <label>
-          speedDown
-          <input disabled value={state.speed} />
-        </label>
-        <label>
-          Gear-Up
-          <input disabled value={state.gear} />
-        </label>
-        <label>
-          Gear-Down
+          Gear
           <input disabled value={state.gear} />
         </label>
       </div>

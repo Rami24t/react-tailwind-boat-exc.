@@ -4,3 +4,8 @@ input {
   border: 2px rgb(118, 0, 0) solid;
   user-select: none;
 }
+button {
+  border-radius: 9px;
+  border: 2px solid rgb(94, 94, 255);
+  padding: 36px;
+}

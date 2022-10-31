@@ -16,7 +16,7 @@ export default function App() {
     console.log('started');
     intervalAction = setInterval(() => cb, 100);
   }
-  function startAction() {
+  function stopAction() {
     console.log('stopped');
     clearInterval(intervalAction);
   }

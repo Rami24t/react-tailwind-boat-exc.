@@ -89,7 +89,6 @@ export default function App() {
     <div
       className="container flex gap-5 flex-col p-1 items-center justify-center h-screen"
       style={{
-        width: '100%',
         backgroundImage:
           "url('https://source.unsplash.com/random/" +
           window.innerWidth +

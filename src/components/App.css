@@ -37,6 +37,7 @@ button:active {
 }
 .container {
   margin: auto;
+  min-width: 100vw;
 }
 
 .container > div:first-of-type {

@@ -88,6 +88,7 @@ export default function App() {
           "?boat')",
       }}
     >
+      <h1>React Boat ~^~^~ Oct 2022 &copy; Rami Al-Saadi</h1>
       <Speedometer
         value={Math.abs(state.speed)}
         fontFamily="squada-one"

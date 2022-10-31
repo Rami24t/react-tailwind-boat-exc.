@@ -11,16 +11,6 @@ import Speedometer, {
 } from 'react-speedometer';
 
 export default function App() {
-  let intervalAction = null;
-  function startAction(cb) {
-    console.log('started');
-    intervalAction = setInterval(() => cb, 100);
-  }
-  function stopAction() {
-    console.log('stopped');
-    clearInterval(intervalAction);
-  }
-
   useEffect(() => {
     const time = setInterval(() => {
       dispatch({ type: 'distancePerSecond' });
@@ -86,6 +76,15 @@ export default function App() {
     distance: 0,
   });
 
+  function startAction(cb) {
+    console.log('started');
+    state.intervalAction = setInterval(cb, 100);
+  }
+  function stopAction() {
+    console.log('stopped');
+    clearInterval(state.intervalAction);
+  }
+
   return (
     <div
       className="container flex gap-5 flex-col p-1 items-center justify-center h-screen"
@@ -98,7 +97,9 @@ export default function App() {
           "?boat')",
       }}
     >
-      <h1>React Boat ~^~^~ Oct 2022 &copy; Rami Al-Saadi</h1>
+      <h1 style={{ opacity: '' + (0.1 + (state.speed / 120) * 0.9) }}>
+        React Boat ~^~^~ Oct 2022 &copy; Rami Al-Saadi
+      </h1>
       <Speedometer
         value={Math.abs(state.speed)}
         fontFamily="squada-one"
@@ -184,7 +185,7 @@ export default function App() {
           <button
             onMouseLeave={() => stopAction()}
             onMouseUp={() => stopAction()}
-            onMouseDown={startAction(() => dispatch({ type: 'gas' }))}
+            onMouseDown={() => startAction(() => dispatch({ type: 'gas' }))}
           >
             Gas
           </button>
@@ -193,7 +194,9 @@ export default function App() {
           <button
             onMouseLeave={() => stopAction()}
             onMouseUp={() => stopAction()}
-            onMouseDown={startAction(() => dispatch({ type: 'speedDown' }))}
+            onMouseDown={() =>
+              startAction(() => dispatch({ type: 'speedDown' }))
+            }
           >
             Slow Down
           </button>

@@ -1,4 +1,4 @@
-# React Boat ~^~^~ Oct 2022 &copy; Rami Al-Saadi
+# React Boat made in Oct 2022 &copy; by Rami Al-Saadi
 
 ## Made using Javascript, JSX, React.js, Tailwind, Stackblitz, CSS, HTML...
 

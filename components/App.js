@@ -38,7 +38,16 @@ export default function App() {
         if (state.started && state.gear != 0)
           return {
             ...state,
-            speed: state.speed + 1 * state.gear,
+            speed:
+              state.gear > 0 &&
+              state.speed > 10 &&
+              state.speed + 1 * state.gear >= 120
+                ? 120
+                : state.gear < 0 &&
+                  state.speed < 10 &&
+                  state.speed + 1 * state.gear <= -120
+                ? -120
+                : state.speed + 1 * state.gear,
           };
         return state;
       case 'speedDown':
@@ -91,7 +100,7 @@ export default function App() {
         <Marks />
         <Indicator />
       </Speedometer>
-      <div className="flex justify-center items-center w-[10%] gap-4 p-1 text-gray-400">
+      <div className="flex justify-center items-center w-[10%] gap-4 p-2 text-gray-400 rounded border border-gray-800">
         <label>
           {' '}
           Engine
@@ -105,18 +114,24 @@ export default function App() {
             }
           />
         </label>
+        {/*
         <label>
           Speed
-          <input
+         <input
             class={'border-2 rounded bg-black text-yellow-300 p-1'}
             disabled
             value={Math.abs(state.speed)}
           />
         </label>
+         */}
         <label>
           Direction
           <input
-            class={'border-2 rounded bg-black text-yellow-300 p-1 px-2'}
+            class={
+              'border-2 rounded bg-black text-' +
+              (state.speed >= 0 ? 'yellow' : 'red') +
+              '-300 p-1 px-2'
+            }
             disabled
             value={state.speed >= 0 ? 'Forward' : 'Reverse'}
           />

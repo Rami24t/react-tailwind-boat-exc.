@@ -1,4 +1,4 @@
-# react-tailwind-boat-exc. React Boat ~^~~^~ Oct 2022 &copy; Rami Al-Saadi
+# React Boat ~^~^~ Oct 2022 &copy; Rami Al-Saadi
 
 ## Made using Javascript, JSX, React.js, Tailwind, Stackblitz, CSS, HTML...
 

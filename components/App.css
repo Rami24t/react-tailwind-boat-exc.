@@ -1,17 +1,35 @@
 input {
   width: 15vw;
   text-align: center;
-  border: 2px rgb(118, 0, 0) solid;
+  border: rgba(118, 0, 0, 0.774) solid;
   user-select: none;
 }
 button {
   border-radius: 9px;
-  border: 2px solid rgb(94, 94, 255);
+  border: 2px solid rgba(239, 239, 239, 0.95);
+  border-bottom: 2px solid rgba(180, 180, 180, 0.95);
+  border-left: 2px solid rgba(151, 151, 151, 0.95);
   padding: 36px;
 }
-.container {
-
+button:active {
+  border: 2px solid rgba(151, 151, 151, 0.95);
+  border-bottom: 2px solid rgba(239, 239, 239, 0.95);
+  border-left: 2px solid rgba(239, 239, 239, 0.95);
 }
-.container > div {
+.container button:hover {
+  color: #fff;
+  background-color: rgba(173, 173, 173, 0.943);
+}
+
+.container button {
+  min-height: 60px;
+  min-width: 50px;
   background-color: rgba(240, 248, 255, 0.8);
+}
+.container {
+  margin: auto;
+}
+
+.container > div:first-of-type {
+  background-color: rgba(20, 30, 33, 0.9);
 }

@@ -1,6 +1,14 @@
 import React from 'react';
 import { useReducer, useEffect } from 'react';
 import './App.css';
+import Speedometer, {
+  Background,
+  Arc,
+  Needle,
+  Progress,
+  Marks,
+  Indicator,
+} from 'react-speedometer';
 
 export default function App() {
   useEffect(() => {
@@ -16,6 +24,7 @@ export default function App() {
         return {
           ...state,
           distance: state.distance + Math.abs(state.speed),
+          speed: state.speed > 0 ? state.speed - 1 : state.speed + 1,
         };
       case 'on/off':
         if (!state.started) {
@@ -29,21 +38,14 @@ export default function App() {
         if (state.started && state.gear != 0)
           return {
             ...state,
-            speed: state.speed + 10 * state.gear,
+            speed: state.speed + 1 * state.gear,
           };
         return state;
       case 'speedDown':
-        if (state.started && state.gear != 0)
+        if (state.started && state.gear != 0 && state.speed != 0)
           return {
             ...state,
-            speed:
-              state.speed <= 0 && state.gear < 0
-                ? state.speed - 10 * state.gear >= 0
-                  ? 0
-                  : state.speed - 10 * state.gear
-                : state.speed - 10 * state.gear <= 0
-                ? 0
-                : state.speed - 10 * state.gear,
+            speed: state.speed >= 0 ? state.speed - 1 : state.speed + 1,
           };
         return state;
       case 'gearUp':
@@ -77,45 +79,91 @@ export default function App() {
           "?boat')",
       }}
     >
-      <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-4">
+      <Speedometer
+        value={Math.abs(state.speed)}
+        fontFamily="squada-one"
+        max={120}
+      >
+        <Background />
+        <Arc />
+        <Needle />
+        <Progress />
+        <Marks />
+        <Indicator />
+      </Speedometer>
+      <div className="flex justify-center items-center w-[10%] gap-4 p-1 text-gray-400">
         <label>
-          <input disabled value={state.started ? 'ON' : 'OFF'} />
+          {' '}
+          Engine
+          <input
+            disabled
+            value={state.started ? 'ON' : 'OFF'}
+            class={
+              'border-2 rounded bg-black text-' +
+              (state.started ? 'green' : 'red') +
+              '-400 mb-1'
+            }
+          />
         </label>
         <label>
           Speed
-          <input disabled value={Math.abs(state.speed)} />
+          <input
+            class={'border-2 rounded bg-black text-yellow-300 p-1'}
+            disabled
+            value={Math.abs(state.speed)}
+          />
         </label>
         <label>
           Direction
-          <input disabled value={state.speed >= 0 ? 'Forward' : 'Backward'} />
+          <input
+            class={'border-2 rounded bg-black text-yellow-300 p-1 px-2'}
+            disabled
+            value={state.speed >= 0 ? 'Forward' : 'Reverse'}
+          />
         </label>
         <label>
           Gear
-          <input disabled value={state.gear} />
+          <input
+            class={'border-2 rounded bg-black text-yellow-300 p-1'}
+            disabled
+            value={
+              state.gear == 0
+                ? 'N'
+                : state.gear > 0
+                ? 'F' + state.gear
+                : 'R' + state.gear
+            }
+          />
         </label>
         <label>
-          Distance travelled
-          <input disabled value={state.distance} />
+          Distance
+          <input
+            class={'border-2 rounded bg-black text-yellow-300 mb-1'}
+            disabled
+            value={state.distance}
+          />
         </label>
       </div>
-      <div className="flex justify-center items-center w-[100%] bg-gray-100 gap-5">
+      <div className="flex justify-center items-center w-[10%] bg-gray-10 gap-5">
         <div>
-          <button onClick={() => dispatch({ type: 'on/off' })}> ON/OFF </button>
+          <button onClick={() => dispatch({ type: 'on/off' })}>
+            {state.started ? 'Turn Off' : 'Start'}
+          </button>
         </div>
         <div>
           <button onClick={() => dispatch({ type: 'gas' })}>Gas</button>
         </div>
         <div>
           <button onClick={() => dispatch({ type: 'speedDown' })}>
-            speedDown
+            Slow Down
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch({ type: 'gearUp' })}>Gear-UP</button>
+          <button onClick={() => dispatch({ type: 'gearUp' })}>Shift UP</button>
         </div>
         <div>
           <button onClick={() => dispatch({ type: 'gearDown' })}>
-            Gear-Down
+            Shift Down
           </button>
         </div>
       </div>

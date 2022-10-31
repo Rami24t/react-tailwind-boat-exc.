@@ -7,11 +7,12 @@ h1 {
 }
 
 input {
-  width: max(15vw, 60px);
+  width: max(20vw, 60px);
   text-align: center;
   border: rgba(118, 0, 0, 0.774) solid;
   user-select: none;
 }
+
 button {
   border-radius: 9px;
   border: 2px solid rgba(239, 239, 239, 0.95);

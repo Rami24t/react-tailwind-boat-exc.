@@ -112,9 +112,8 @@ export default function App() {
         <Marks />
         <Indicator />
       </Speedometer>
-      <div className="flex justify-center items-center w-[10%] gap-4 p-2 text-gray-400 rounded border border-gray-800">
+      <div className="flex justify-center items-center w-[10%] gap-2 p-2 text-gray-400 rounded border border-gray-800">
         <label>
-          {' '}
           Engine
           <input
             disabled
@@ -140,7 +139,7 @@ export default function App() {
           Direction
           <input
             className={
-              'border-2 w-min-[20%] rounded bg-black text-' +
+              'border-2 w-min-[30%] rounded bg-black text-' +
               (state.speed >= 0 ? 'yellow' : 'red') +
               '-300 p-1 px-2'
             }

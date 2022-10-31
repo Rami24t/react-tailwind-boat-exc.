@@ -11,6 +11,16 @@ import Speedometer, {
 } from 'react-speedometer';
 
 export default function App() {
+  let intervalAction = null;
+  function startAction(cb) {
+    console.log('started');
+    intervalAction = setInterval(() => cb, 100);
+  }
+  function startAction() {
+    console.log('stopped');
+    clearInterval(intervalAction);
+  }
+
   useEffect(() => {
     const time = setInterval(() => {
       dispatch({ type: 'distancePerSecond' });
@@ -108,8 +118,8 @@ export default function App() {
           <input
             disabled
             value={state.started ? 'ON' : 'OFF'}
-            class={
-              'border-2 rounded bg-black text-' +
+            className={
+              'border-2 w-min-[20%] rounded bg-black text-' +
               (state.started ? 'green' : 'red') +
               '-400 mb-1'
             }
@@ -119,7 +129,7 @@ export default function App() {
         <label>
           Speed
          <input
-            class={'border-2 rounded bg-black text-yellow-300 p-1'}
+            className={'border-2 w-min-[20%] rounded bg-black text-yellow-300 p-1'}
             disabled
             value={Math.abs(state.speed)}
           />
@@ -128,8 +138,8 @@ export default function App() {
         <label>
           Direction
           <input
-            class={
-              'border-2 rounded bg-black text-' +
+            className={
+              'border-2 w-min-[20%] rounded bg-black text-' +
               (state.speed >= 0 ? 'yellow' : 'red') +
               '-300 p-1 px-2'
             }
@@ -140,7 +150,9 @@ export default function App() {
         <label>
           Gear
           <input
-            class={'border-2 rounded bg-black text-yellow-300 p-1'}
+            className={
+              'border-2 w-min-[20%] rounded bg-black text-yellow-300 p-1'
+            }
             disabled
             value={
               state.gear == 0
@@ -154,7 +166,9 @@ export default function App() {
         <label>
           Distance
           <input
-            class={'border-2 rounded bg-black text-yellow-300 mb-1'}
+            className={
+              'border-2 w-min-[20%] rounded bg-black text-yellow-300 mb-1'
+            }
             disabled
             value={state.distance}
           />
@@ -167,10 +181,20 @@ export default function App() {
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch({ type: 'gas' })}>Gas</button>
+          <button
+            onMouseLeave={() => stopAction()}
+            onMouseUp={() => stopAction()}
+            onMouseDown={startAction(() => dispatch({ type: 'gas' }))}
+          >
+            Gas
+          </button>
         </div>
         <div>
-          <button onClick={() => dispatch({ type: 'speedDown' })}>
+          <button
+            onMouseLeave={() => stopAction()}
+            onMouseUp={() => stopAction()}
+            onMouseDown={startAction(() => dispatch({ type: 'speedDown' }))}
+          >
             Slow Down
           </button>
         </div>
